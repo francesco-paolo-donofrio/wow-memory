@@ -20,8 +20,6 @@ const cards = [
     { name: 'gun', img: './img/gun.webp' },
     { name: 'gold', img: './img/gold.webp' },
     { name: 'gold', img: './img/gold.webp' },
-    { name: 'deathcoil', img: './img/deathcoil.webp' },
-    { name: 'deathcoil', img: './img/deathcoil.webp' },
 ];
 
 // Variabili di stato del gioco
@@ -38,16 +36,16 @@ function shuffle(array) {
     return array;
 }
 
-// Crea dinamicamente la griglia di carte
+// Creo dinamicamente la griglia di carte
 function createBoard() {
-    const gameBoard = document.querySelector('.f-d-container-main');
-    gameBoard.innerHTML = ''; // Pulisci il contenuto esistente
+    const gameBoard = document.querySelector('.f-d-container-main .row');
+    gameBoard.innerHTML = '';
 
     const shuffledCards = shuffle(cards);
 
     shuffledCards.forEach(card => {
         const cardElement = document.createElement('div');
-        cardElement.classList.add(); // Usa le classi Bootstrap per la griglia
+        cardElement.classList.add('col', 'mb-4');
         cardElement.innerHTML = `
             <div class="flip-card">
                 <div class="flip-card-inner" data-name="${card.name}">
@@ -80,13 +78,11 @@ function flipCard() {
     this.classList.add('flip');
 
     if (!hasFlippedCard) {
-        // Primo clic
         hasFlippedCard = true;
         firstCard = this;
         return;
     }
 
-    // Secondo clic
     secondCard = this;
     checkForMatch();
 }
@@ -115,7 +111,7 @@ function unflipCards() {
         secondCard.classList.remove('flip');
 
         resetBoard();
-    }, 1500);
+    }, 1000);
 }
 
 // Resetta le variabili di stato del gioco
@@ -129,6 +125,11 @@ function initGame() {
     createBoard();
 }
 
-document.addEventListener('DOMContentLoaded', initGame);
+document.getElementById('startGame').addEventListener('click', () => {
+    document.querySelector('.f-d-container-main').classList.remove('d-none');
+    initGame();
+});
 
-
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.f-d-container-main').classList.add('d-none');
+});
