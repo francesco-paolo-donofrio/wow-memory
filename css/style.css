@@ -7,6 +7,7 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    font-family: "Cinzel", serif;
 }
 
 .f-d-container-main {
@@ -14,8 +15,12 @@
     height: 50%;
     width: 80%;
     border-radius: 10px;
-    opacity: 0.8;
+    opacity: 0.9;
     padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
 }
 
 .f-d-container-pills {
@@ -39,13 +44,18 @@
     width: calc(50% - 20px);
     height: 100%;
     background-color: #392204;
+    opacity: 0.9;
     border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
 .second-container {
     width: calc(50% - 20px);
     height: 100%;
     background-color: #392204;
+    opacity: 0.9;
     border-radius: 10px;
 }
 
@@ -53,8 +63,8 @@
 
 .flip-card {
     background-color: transparent;
-    width: 150px;
-    height: 200px;
+    width: 100px;
+    height: 150px;
     border-radius: 5px;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
   }
@@ -66,15 +76,15 @@
     height: 100%;
     border-radius: 5px;
     text-align: center;
-    transition: transform 0.8s;
+    transition: transform 1s;
     transform-style: preserve-3d;
   }
   
-  /* Do an horizontal flip when you move the mouse over the flip box container */
+  /* Do an horizontal flip when you move the mouse over the flip box container
   .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
     border-radius: 5px;
-  }
+  } */
   
   /* Position the front and back side */
   .flip-card-front, .flip-card-back {
@@ -89,7 +99,6 @@
   /* Style the front side (fallback if image is missing) */
   .flip-card-front {
     background-color: transparent;
-    color: black;
     border-radius: 5px;
   }
   
@@ -106,8 +115,8 @@
   }
 
   .card {
-    width: 150px;
-    height: 200px;
+    width: 100px;
+    height: 150px;
     border-radius: 5px;
   }
 
