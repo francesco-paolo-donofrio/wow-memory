@@ -15,6 +15,7 @@
     width: 80%;
     border-radius: 10px;
     opacity: 0.8;
+    padding: 20px;
 }
 
 .f-d-container-pills {
@@ -51,7 +52,7 @@
 /* card */
 
 .flip-card {
-    background-color: #054980;
+    background-color: transparent;
     width: 150px;
     height: 200px;
     border-radius: 5px;
@@ -87,21 +88,30 @@
   
   /* Style the front side (fallback if image is missing) */
   .flip-card-front {
-    background-color: #054980;
+    background-color: transparent;
     color: black;
     border-radius: 5px;
   }
   
   /* Style the back side */
   .flip-card-back {
-    background-color: #054980;
-    color: white;
+    background-image: url(../img/back-card.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     transform: rotateY(180deg);
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .card {
     width: 150px;
     height: 200px;
     border-radius: 5px;
+  }
+
+  .item-card {
+    width: 80px;
+    height: 80px;
   }
