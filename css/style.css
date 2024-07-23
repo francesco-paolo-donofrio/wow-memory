@@ -1,0 +1,107 @@
+#app {
+    background-image: url(../img/background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.f-d-container-main {
+    background-color: #392204;
+    height: 55%;
+    width: 80%;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+
+.f-d-container-pills {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: 50px;
+    height: 15%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.f-d-container-empty {
+    height: 15%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.first-container {
+    width: calc(50% - 20px);
+    height: 100%;
+    background-color: #392204;
+    border-radius: 10px;
+}
+
+.second-container {
+    width: calc(50% - 20px);
+    height: 100%;
+    background-color: #392204;
+    border-radius: 10px;
+}
+
+/* card */
+
+.flip-card {
+    background-color: #054980;
+    width: 150px;
+    height: 200px;
+    border-radius: 5px;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  }
+  
+  /* This container is needed to position the front and back side */
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+    border-radius: 5px;
+  }
+  
+  /* Position the front and back side */
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    background-color: #054980;
+    color: black;
+    border-radius: 5px;
+  }
+  
+  /* Style the back side */
+  .flip-card-back {
+    background-color: #054980;
+    color: white;
+    transform: rotateY(180deg);
+    border-radius: 5px;
+  }
+
+  .card {
+    width: 150px;
+    height: 200px;
+    border-radius: 5px;
+  }
