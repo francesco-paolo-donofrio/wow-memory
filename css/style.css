@@ -225,3 +225,52 @@
     width: 80px;
     height: 80px;
 }
+
+/* table style */
+
+.table-gradient {
+    background: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.table-gradient thead {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.table-gradient th,
+.table-gradient td {
+    border: none;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table-gradient tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.table-gradient tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.table-gradient tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.modal-content {
+    background-image: url(../img/backgroundModal.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+.modal-header, .modal-footer {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
