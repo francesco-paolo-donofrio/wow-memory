@@ -1,3 +1,24 @@
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Script is loaded successfully.");
+
+    document.getElementById('startGame').addEventListener('click', () => {
+        document.querySelector('.f-d-container-main').classList.remove('d-none');
+        initGame();
+    });
+
+    const destroyModal = new bootstrap.Modal(document.getElementById('destroyModal'));
+    
+    document.getElementById('destroyGame').addEventListener('click', () => {
+        destroyModal.show();
+    });
+
+    document.querySelector('[data-bs-dismiss="modal"]').addEventListener('click', () => {
+        destroyModal.hide();
+    });
+
+    document.querySelector('.f-d-container-main').classList.add('d-none');
+});
+
 // Array di carte con coppie
 const cards = [
     { name: 'axe', img: './img/axe.webp' },
@@ -124,12 +145,3 @@ function resetBoard() {
 function initGame() {
     createBoard();
 }
-
-document.getElementById('startGame').addEventListener('click', () => {
-    document.querySelector('.f-d-container-main').classList.remove('d-none');
-    initGame();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.f-d-container-main').classList.add('d-none');
-});
