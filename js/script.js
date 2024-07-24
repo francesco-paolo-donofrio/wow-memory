@@ -255,6 +255,11 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
+document.getElementById('restartGame').addEventListener('click', () => {
+    document.querySelector('.f-d-container-main').classList.remove('d-none');
+    initGame();
+});
+
 // Inizializza il gioco
 function initGame() {
     resetGame();

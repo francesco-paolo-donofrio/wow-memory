@@ -92,7 +92,7 @@
 }
 
 .f-d-button-confirm-modal {
-    width: 30%;
+    width: 20%;
     height: 50%;
     background-color: #261921;
     border: 1px solid #FFDB0F;
@@ -104,6 +104,22 @@
     &:hover {
         cursor: pointer;
         background-color: #B06601;
+    }
+}
+
+.f-d-button-destroy-modal {
+    width: 20%;
+    height: 50%;
+    background-color: #9F1600;
+    border: 1px solid #ff1302;
+    opacity: 0.9;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 20px;
+    &:hover {
+        cursor: pointer;
+        background-color: #ff1302;
     }
 }
 
@@ -246,6 +262,8 @@
     height: 80px;
 }
 
+/* table */
+
 .f-d-table-bg {
     background-color: #FFDB0F;
     border: 1px solid #261921;
@@ -253,13 +271,65 @@
     color: #392204;
 }
 
+.f-d-table-bg-2 {
+    background-color: #261921;
+    border: 1px solid #FFDB0F;
+    border-radius: 10px;
+    color: #FFDB0F;
+}
+
+.f-d-table-bg-3 {
+    background-color: #3498db;
+    border: 1px solid #261921;
+    border-radius: 10px;
+    color: white;
+}
+
+.custom-table {
+    background-color: #3498db;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.custom-table thead {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.custom-table th {
+    background-color: #3498db;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 12px 15px;
+    border: none;
+}
+
+.custom-table td {
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* modal */
+
 .modal-content {
     background-image: url(../img/wow-image-4.jpg);
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
-}
-
-.table {
-    background-color: #392204 !important;
 }
