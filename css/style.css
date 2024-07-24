@@ -139,10 +139,25 @@
     background-color: #261921;
     border: 1px solid #FFDB0F;
     color: white;
-    font-size: 20px;
+    font-size: 35px;
     text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.f-d-background-dropdown {
+    background-color: #392204;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    a {
+        color: white;
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
 /* card */
 
 .flip-card {

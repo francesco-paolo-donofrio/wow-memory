@@ -111,7 +111,7 @@ function createBoard() {
 
     shuffledCards.forEach(card => {
         const cardElement = document.createElement('div');
-        cardElement.classList.add('col', 'mb-2');
+        cardElement.classList.add('col', 'mb-2', 'd-flex', 'justify-content-center', 'align-items-center');
         cardElement.innerHTML = `
             <div class="flip-card">
                 <div class="flip-card-inner" data-name="${card.name}">
@@ -141,11 +141,6 @@ function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
 
-    // Incrementa moves solo quando effettivamente giriamo una carta
-    if (!this.classList.contains('flip')) {
-        updateMoves();
-    }
-
     this.classList.add('flip');
 
     if (!hasFlippedCard) {
@@ -160,6 +155,7 @@ function flipCard() {
 
 // Controlla se le carte selezionate sono una coppia
 function checkForMatch() {
+    updateMoves(); // Incrementa le mosse ogni volta che una coppia viene confrontata
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
     isMatch ? disableCards() : unflipCards();
