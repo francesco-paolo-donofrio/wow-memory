@@ -257,6 +257,7 @@ function resetBoard() {
 
 document.getElementById('restartGame').addEventListener('click', () => {
     document.querySelector('.f-d-container-main').classList.remove('d-none');
+    
     initGame();
 });
 
