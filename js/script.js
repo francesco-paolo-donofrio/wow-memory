@@ -6,9 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initGame();
     });
 
-    // ... il resto del tuo codice esistente ...
+    document.getElementById('statsButton').addEventListener('click', showStats);
 
-    // Aggiungi questo:
     document.getElementById('destroyGame').addEventListener('click', () => {
         stopTimer();
     });
@@ -101,6 +100,22 @@ function shuffle(array) {
     return array;
 }
 
+function updateStats() {
+    document.getElementById('statMoves').textContent = `Moves: ${moves}`;
+    document.getElementById('statErrors').textContent = `Errors: ${errors}`;
+    
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    const timeString = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    document.getElementById('statTime').textContent = `Time: ${timeString}`;
+}
+
+function showStats() {
+    updateStats();
+    const statsModal = new bootstrap.Modal(document.getElementById('modalStats'));
+    statsModal.show();
+}
+
 
 // Creo dinamicamente la griglia di carte
 function createBoard() {
@@ -155,10 +170,62 @@ function flipCard() {
 
 // Controlla se le carte selezionate sono una coppia
 function checkForMatch() {
-    updateMoves(); // Incrementa le mosse ogni volta che una coppia viene confrontata
+    updateMoves();
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
     isMatch ? disableCards() : unflipCards();
+
+    // Verifica se tutte le carte sono state abbinate
+    if (document.querySelectorAll('.flip-card-inner.flip').length === cards.length) {
+        stopTimer();
+        setTimeout(() => {
+            saveGameResult(); // Salva il risultato del gioco
+            showStats(); // Mostra le statistiche alla fine del gioco
+        }, 500);
+    }
+}
+
+function saveGameResult() {
+    const result = {
+        date: new Date().toLocaleString(),
+        moves: moves,
+        errors: errors,
+        time: formatTime(seconds)
+    };
+
+    let history = JSON.parse(localStorage.getItem('gameHistory')) || [];
+    history.push(result);
+    localStorage.setItem('gameHistory', JSON.stringify(history));
+}
+
+function updateStatsHistory() {
+    const history = JSON.parse(localStorage.getItem('gameHistory')) || [];
+    const historyTable = document.getElementById('statsHistory');
+    historyTable.innerHTML = '';
+
+    history.slice(-5).reverse().forEach(result => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${result.date}</td>
+            <td>${result.moves}</td>
+            <td>${result.errors}</td>
+            <td>${result.time}</td>
+        `;
+        historyTable.appendChild(row);
+    });
+}
+
+function showStats() {
+    updateStats();
+    updateStatsHistory();
+    const statsModal = new bootstrap.Modal(document.getElementById('modalStats'));
+    statsModal.show();
+}
+
+function formatTime(totalSeconds) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
 // Disabilita le carte corrispondenti
@@ -193,4 +260,5 @@ function initGame() {
     resetGame();
     startTimer();
     createBoard();
+    updateStats();
 }
