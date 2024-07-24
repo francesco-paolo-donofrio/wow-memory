@@ -6,17 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
         initGame();
     });
 
-    const destroyModal = new bootstrap.Modal(document.getElementById('destroyModal'));
-    
+    // ... il resto del tuo codice esistente ...
+
+    // Aggiungi questo:
     document.getElementById('destroyGame').addEventListener('click', () => {
-        destroyModal.show();
+        stopTimer();
     });
-
-    document.querySelector('[data-bs-dismiss="modal"]').addEventListener('click', () => {
-        destroyModal.hide();
-    });
-
-    document.querySelector('.f-d-container-main').classList.add('d-none');
 });
 
 // Array di carte con coppie
@@ -49,8 +44,8 @@ let lockBoard = false;
 let firstCard, secondCard;
 let timer;
 let seconds = 0;
-let moves = 0;
-let errors = 0;
+let moves = -1;
+let errors = -1;
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
@@ -73,6 +68,30 @@ function updateTimer() {
         `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
 
+// Funzione che aggiorna il numero di mosse eseguite per il gioco
+function updateMoves() {
+    moves++;
+    document.getElementById('moves').textContent = `Moves: ${moves}`;
+}
+
+// Funzione che aggiorna il numero di errori del giocatore
+function updateErrors() {
+    errors++;
+    document.getElementById('errors').textContent = `Errors: ${errors}`;
+}
+
+// Funzione che resetta il gioco
+function resetGame() {
+    seconds = 0;
+    moves = -1;
+    errors = -1;
+    updateTimer();
+    updateMoves();
+    updateErrors();
+    stopTimer();
+}
+
+
 // Mescola l'array di carte
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -82,11 +101,6 @@ function shuffle(array) {
     return array;
 }
 
-// Funzione che aggiorna il numero di mosse eseguite per il gioco
-function updateMoves() {
-    moves++;
-    document.getElementById('moves').textContent = `Moves: ${moves}`;
-}
 
 // Creo dinamicamente la griglia di carte
 function createBoard() {
@@ -127,6 +141,11 @@ function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
 
+    // Incrementa moves solo quando effettivamente giriamo una carta
+    if (!this.classList.contains('flip')) {
+        updateMoves();
+    }
+
     this.classList.add('flip');
 
     if (!hasFlippedCard) {
@@ -157,6 +176,7 @@ function disableCards() {
 // Riporta le carte allo stato iniziale se non corrispondono
 function unflipCards() {
     lockBoard = true;
+    updateErrors();
 
     setTimeout(() => {
         firstCard.classList.remove('flip');
@@ -174,5 +194,7 @@ function resetBoard() {
 
 // Inizializza il gioco
 function initGame() {
+    resetGame();
+    startTimer();
     createBoard();
 }

@@ -126,8 +126,11 @@
     border: 1px solid #FFDB0F;
     opacity: 0.9;
     color: white;
-    font-size: 20px;
+    font-size: 35px;
     text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .f-d-moves-errors {
