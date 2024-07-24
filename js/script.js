@@ -47,6 +47,31 @@ const cards = [
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
+let timer;
+let seconds = 0;
+let moves = 0;
+let errors = 0;
+
+// Funzione che fa partire il timer di gioco
+function startTimer() {
+    timer = setInterval(function() {
+        seconds++;
+        updateTimer();
+    }, 1000);
+}
+
+// Funzione che stoppa il timer di gioco
+function stopTimer() {
+    clearInterval(timer);
+}
+
+// Funzione che aggiorna il timer di gioco 
+function updateTimer() {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    document.getElementById('timeButton').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
 
 // Mescola l'array di carte
 function shuffle(array) {
@@ -55,6 +80,12 @@ function shuffle(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+// Funzione che aggiorna il numero di mosse eseguite per il gioco
+function updateMoves() {
+    moves++;
+    document.getElementById('moves').textContent = `Moves: ${moves}`;
 }
 
 // Creo dinamicamente la griglia di carte

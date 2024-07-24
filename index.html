@@ -19,6 +19,9 @@
                     data-bs-target="#destroyModal">Destroy Game</button>
             </div>
             <div class="second-container">
+                <div class="d-flex align-items-center justify-content-around flex-column">
+                    <div id="timeButton" class="f-d-timeButton"></div>
+                </div>
                 <div class="dropdown">
                     <button class="f-d-miniButton dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -30,15 +33,25 @@
                         <li><a class="dropdown-item" href="#">Hard</a></li>
                     </ul>
                 </div>
+                <div>
+                    <button class="f-d-miniButton">Stats</button>
+                </div>
             </div>
         </div>
         <div class="f-d-container-main d-none">
             <div class="row"></div>
         </div>
-        <div class="f-d-container-empty"></div>
+        <div class="f-d-container-empty">
+            <div id="moves" class="f-d-moves-errors">
+
+            </div>
+            <div id="errors" class="f-d-moves-errors">
+
+            </div>
+        </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal DELETE -->
     <div class="modal fade" id="destroyModal" data-bs-backdrop="static" aria-labelledby="destroyModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -47,7 +60,7 @@
                     <h5 class="modal-title" id="destroyModalLabel">Are you sure you want to explode the game?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center">
+                <div class="modal-body text-center fw-bold">
                     "Warning: This action is irreversible. Once you click 'Explode', you will lose the game field."
                 </div>
                 <div class="modal-footer">
@@ -57,6 +70,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal STATS -->
+<div id="modalStats" class="modal-dialog modal-dialog-scrollable d-none">
+    ...
+  </div>
 
     <!-- Inclusione di Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
