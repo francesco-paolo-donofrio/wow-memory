@@ -91,6 +91,22 @@
     }
 }
 
+.f-d-button-confirm-modal {
+    width: 30%;
+    height: 50%;
+    background-color: #261921;
+    border: 1px solid #FFDB0F;
+    opacity: 0.9;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 20px;
+    &:hover {
+        cursor: pointer;
+        background-color: #B06601;
+    }
+}
+
 .f-d-button-destroy {
     width: calc(45% - 20px);
     height: 50%;
@@ -161,6 +177,10 @@
         cursor: pointer;
     }
 }
+
+.modal-footer {
+    border: none !important;
+}
 /* card */
 
 .flip-card {
@@ -226,51 +246,20 @@
     height: 80px;
 }
 
-/* table style */
-
-.table-gradient {
-    background: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
-    color: white;
+.f-d-table-bg {
+    background-color: #FFDB0F;
+    border: 1px solid #261921;
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.table-gradient thead {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.table-gradient th,
-.table-gradient td {
-    border: none;
-    padding: 12px 15px;
-    text-align: left;
-}
-
-.table-gradient tbody tr {
-    transition: background-color 0.3s ease;
-}
-
-.table-gradient tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.table-gradient tbody tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.05);
+    color: #392204;
 }
 
 .modal-content {
-    background-image: url(../img/backgroundModal.jpg);
+    background-image: url(../img/wow-image-4.jpg);
     background-size: cover;
-    background-position: 50% 50%;
+    background-position: bottom;
     background-repeat: no-repeat;
-    color: white;
 }
 
-.modal-header, .modal-footer {
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.btn-close {
-    filter: invert(1) grayscale(100%) brightness(200%);
+.table {
+    background-color: #392204 !important;
 }
