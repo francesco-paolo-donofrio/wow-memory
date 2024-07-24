@@ -45,7 +45,7 @@ function createBoard() {
 
     shuffledCards.forEach(card => {
         const cardElement = document.createElement('div');
-        cardElement.classList.add('col', 'mb-4');
+        cardElement.classList.add('col', 'mb-2');
         cardElement.innerHTML = `
             <div class="flip-card">
                 <div class="flip-card-inner" data-name="${card.name}">

@@ -50,6 +50,9 @@
     color: white;
     font-size: 20px;
     text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .second-container {
@@ -60,15 +63,36 @@
     border-radius: 10px;
 }
 
-.f-d-button {
-    width: 50%;
-    height: 20%;
-    border-radius: 10px;
-    background-color: #F0EB00;
+.f-d-button-confirm {
+    width: calc(45% - 20px);
+    height: 50%;
+    background-color: #261921;
+    border: 1px solid #FFDB0F;
     opacity: 0.9;
     color: white;
     font-size: 20px;
     text-transform: uppercase;
+    margin: 20px;
+    &:hover {
+        cursor: pointer;
+        background-color: #B06601;
+    }
+}
+
+.f-d-button-destroy {
+    width: calc(45% - 20px);
+    height: 50%;
+    background-color: #9F1600;
+    border: 1px solid #ff1302;
+    opacity: 0.9;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 20px;
+    &:hover {
+        cursor: pointer;
+        background-color: #ff1302;
+    }
 }
 
 /* card */
