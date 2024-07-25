@@ -35,6 +35,48 @@ const cards = [
     { name: 'gun', img: './img/gun.webp' },
     { name: 'gold', img: './img/gold.webp' },
     { name: 'gold', img: './img/gold.webp' },
+
+    { name: 'bandage', img: './img/bandage.webp' },
+    { name: 'bandage', img: './img/bandage.webp' },
+    { name: 'coin', img: './img/coin.webp' },
+    { name: 'coin', img: './img/coin.webp' },
+    { name: 'deadHead', img: './img/deadHead.webp' },
+    { name: 'deadHead', img: './img/deadHead.webp' },
+    { name: 'dwarf', img: './img/dwarf.webp' },
+    { name: 'dwarf', img: './img/dwarf.webp' },
+    { name: 'elf', img: './img/elf.webp' },
+    { name: 'elf', img: './img/elf.webp' },
+    { name: 'fear', img: './img/fear.webp' },
+    { name: 'fear', img: './img/fear.webp' },
+    { name: 'head', img: './img/head.webp' },
+    { name: 'head', img: './img/head.webp' },
+    { name: 'human', img: './img/human.webp' },
+    { name: 'human', img: './img/human.webp' },
+    { name: 'lingot', img: './img/lingot.webp' },
+    { name: 'lingot', img: './img/lingot.webp' },
+    { name: 'lion', img: './img/lion.webp' },
+    { name: 'lion', img: './img/lion.webp' },
+    { name: 'mace', img: './img/mace.webp' },
+    { name: 'mace', img: './img/mace.webp' },
+    { name: 'orc', img: './img/orc.webp' },
+    { name: 'orc', img: './img/orc.webp' },
+    { name: 'post', img: './img/post.webp' },
+    { name: 'post', img: './img/post.webp' },
+    { name: 'shield', img: './img/shield.webp' },
+    { name: 'shield', img: './img/shield.webp' },
+    { name: 'shirt', img: './img/shirt.webp' },
+    { name: 'shirt', img: './img/shirt.webp' },
+    { name: 'staff', img: './img/staff.webp' },
+    { name: 'staff', img: './img/staff.webp' },
+    { name: 'sword', img: './img/sword.webp' },
+    { name: 'sword', img: './img/sword.webp' },
+    { name: 'troll', img: './img/troll.webp' },
+    { name: 'troll', img: './img/troll.webp' },
+    { name: 'undead', img: './img/undead.webp' },
+    { name: 'undead', img: './img/undead.webp' },
+    { name: 'wood', img: './img/wood.webp' },
+    { name: 'wood', img: './img/wood.webp' },
+
 ];
 
 // Variabili di stato del gioco
@@ -45,6 +87,7 @@ let timer;
 let seconds = 0;
 let moves = -1;
 let errors = -1;
+let currentDifficulty = 'medium';
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
@@ -122,19 +165,21 @@ function createBoard() {
     const gameBoard = document.querySelector('.f-d-container-main .row');
     gameBoard.innerHTML = '';
 
-    const shuffledCards = shuffle(cards);
+    let cardsToUse = currentDifficulty === 'hard' ? cards : cards.slice(0, 20);
+    const shuffledCards = shuffle(cardsToUse);
 
     shuffledCards.forEach(card => {
         const cardElement = document.createElement('div');
         cardElement.classList.add('col', 'mb-2', 'd-flex', 'justify-content-center', 'align-items-center');
+        const isSmall = currentDifficulty === 'hard' ? 'small' : '';
         cardElement.innerHTML = `
-            <div class="flip-card">
+            <div class="flip-card ${isSmall}">
                 <div class="flip-card-inner" data-name="${card.name}">
                     <div class="flip-card-front">
-                        <img class="card" src="./img/trading-card.png" alt="front-card">
+                        <img class="card ${isSmall}" src="./img/trading-card.png" alt="front-card">
                     </div>
                     <div class="flip-card-back">
-                        <img class="item-card" src="${card.img}" alt="${card.name}">
+                        <img class="item-card ${isSmall}" src="${card.img}" alt="${card.name}">
                     </div>
                 </div>
             </div>
@@ -144,6 +189,13 @@ function createBoard() {
 
     addCardEventListeners();
 }
+
+document.querySelector('.dropdown-menu').addEventListener('click', (e) => {
+    if (e.target.classList.contains('dropdown-item')) {
+        currentDifficulty = e.target.textContent.toLowerCase();
+        initGame();
+    }
+});
 
 // Aggiungi event listener alle carte
 function addCardEventListeners() {
@@ -267,6 +319,13 @@ const restartButton = document.getElementById('restartGame');
 function initGame() {
     resetGame();
     startTimer();
+    const mainContainer = document.querySelector('.f-d-container-main');
+    mainContainer.classList.remove('d-none');
+    if (currentDifficulty === 'hard') {
+        mainContainer.classList.add('hard');
+    } else {
+        mainContainer.classList.remove('hard');
+    }
     createBoard();
     updateStats();
 }

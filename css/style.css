@@ -26,6 +26,15 @@
     align-items: center;
 }
 
+.f-d-container-main.hard {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: start;
+}
+
 .f-d-container-pills {
     display: flex;
     justify-content: space-between;
@@ -196,7 +205,7 @@
 .modal-footer {
     border: none !important;
 }
-/* card */
+/* card medium mode */
 
 .flip-card {
     background-color: transparent;
@@ -259,6 +268,23 @@
 .item-card {
     width: 80px;
     height: 80px;
+}
+
+/* card hard mode */
+
+.flip-card.small {
+    width: 60px;
+    height: 100px;
+}
+
+.flip-card.small .card {
+    width: 60px;
+    height: 100px;
+}
+
+.flip-card.small .item-card {
+    width: 50px;
+    height: 50px;
 }
 
 /* table */
