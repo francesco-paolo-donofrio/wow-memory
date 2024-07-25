@@ -1,5 +1,6 @@
 #app {
     background-image: url(../img/background.jpeg);
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -40,6 +41,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 }
 
 .f-d-container-empty {
@@ -59,7 +61,7 @@
     font-size: 20px;
     text-transform: uppercase;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -76,7 +78,7 @@
 }
 
 .f-d-button-confirm {
-    width: calc(45% - 20px);
+    width: calc(80% - 20px);
     height: 50%;
     background-color: #261921;
     border: 1px solid #FFDB0F;
@@ -104,22 +106,6 @@
     &:hover {
         cursor: pointer;
         background-color: #B06601;
-    }
-}
-
-.f-d-button-destroy-modal {
-    width: 20%;
-    height: 50%;
-    background-color: #9F1600;
-    border: 1px solid #ff1302;
-    opacity: 0.9;
-    color: white;
-    font-size: 20px;
-    text-transform: uppercase;
-    margin: 20px;
-    &:hover {
-        cursor: pointer;
-        background-color: #ff1302;
     }
 }
 
@@ -168,12 +154,25 @@
     align-items: center;
 }
 
-.f-d-moves-errors {
+.f-d-moves {
     width: 30%;
     height: 50%;
     background-color: #261921;
     border: 1px solid #FFDB0F;
     color: white;
+    font-size: 35px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.f-d-errors {
+    width: 30%;
+    height: 50%;
+    background-color: #261921;
+    border: 1px solid #ff1302;
+    color: red;
     font-size: 35px;
     text-transform: uppercase;
     display: flex;

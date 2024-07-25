@@ -48,7 +48,7 @@ let errors = -1;
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
-    timer = setInterval(function() {
+    timer = setInterval(function () {
         seconds++;
         updateTimer();
     }, 1000);
@@ -63,7 +63,7 @@ function stopTimer() {
 function updateTimer() {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    document.getElementById('timeButton').textContent = 
+    document.getElementById('timeButton').textContent =
         `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
 
@@ -103,7 +103,7 @@ function shuffle(array) {
 function updateStats() {
     document.getElementById('statMoves').textContent = `Moves: ${moves}`;
     document.getElementById('statErrors').textContent = `Errors: ${errors}`;
-    
+
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     const timeString = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
@@ -255,11 +255,13 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
-document.getElementById('restartGame').addEventListener('click', () => {
-    document.querySelector('.f-d-container-main').classList.remove('d-none');
-    
-    initGame();
-});
+const restartButton = document.getElementById('restartGame');
+    restartButton.addEventListener('click', () => {
+        const closeModalBtn = document.getElementById('closeModal');
+        closeModalBtn.click();
+        document.querySelector('.f-d-container-main').classList.remove('d-none');
+        initGame();
+    })
 
 // Inizializza il gioco
 function initGame() {
