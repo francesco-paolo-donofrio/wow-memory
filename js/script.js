@@ -243,6 +243,7 @@ function saveGameResult() {
         moves: moves,
         errors: errors,
         time: formatTime(seconds)
+        
     };
 
     let history = JSON.parse(localStorage.getItem('gameHistory')) || [];
@@ -262,6 +263,7 @@ function updateStatsHistory() {
             <td>${result.moves}</td>
             <td>${result.errors}</td>
             <td>${result.time}</td>
+            <td>${result.difficulty}</td>
         `;
         historyTable.appendChild(row);
     });
