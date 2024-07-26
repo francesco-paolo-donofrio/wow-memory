@@ -1,20 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Script is loaded successfully.");
 
+    resetGameState();
+
     document.getElementById('startGame').addEventListener('click', () => {
-        document.querySelector('.f-d-container-main').classList.remove('d-none');
-        initGame();
+        if (difficultySelected) {
+            document.querySelector('.f-d-container-main').classList.remove('d-none');
+            startGame();
+        }
     });
 
     document.getElementById('statsButton').addEventListener('click', showStats);
 
-    document.getElementById('destroyGame').addEventListener('click', () => {
-        stopTimer();
-    });
 });
 
-// Array di carte con coppie
-const cards = [
+// Array di carte in modalità easy
+const easyCards = [
     { name: 'axe', img: './img/axe.webp' },
     { name: 'axe', img: './img/axe.webp' },
     { name: 'water', img: './img/water.webp' },
@@ -24,18 +25,55 @@ const cards = [
     { name: 'ring', img: './img/ring.webp' },
     { name: 'ring', img: './img/ring.webp' },
     { name: 'potion', img: './img/potion.webp' },
-    { name: 'potion', img: './img/potion.webp' },
-    { name: 'pants', img: './img/pants.webp' },
-    { name: 'pants', img: './img/pants.webp' },
-    { name: 'mining', img: './img/mining.webp' },
-    { name: 'mining', img: './img/mining.webp' },
-    { name: 'healtstone', img: './img/healtstone.webp' },
-    { name: 'healtstone', img: './img/healtstone.webp' },
-    { name: 'gun', img: './img/gun.webp' },
-    { name: 'gun', img: './img/gun.webp' },
-    { name: 'gold', img: './img/gold.webp' },
-    { name: 'gold', img: './img/gold.webp' },
+    { name: 'potion', img: './img/potion.webp' }
+];
 
+// Array di carte in modalità medium
+const mediumCards = [
+    { name: 'axe', img: './img/axe.webp' },
+    { name: 'axe', img: './img/axe.webp' },
+    { name: 'water', img: './img/water.webp' },
+    { name: 'water', img: './img/water.webp' },
+    { name: 'wand', img: './img/wand.webp' },
+    { name: 'wand', img: './img/wand.webp' },
+    { name: 'ring', img: './img/ring.webp' },
+    { name: 'ring', img: './img/ring.webp' },
+    { name: 'potion', img: './img/potion.webp' },
+    { name: 'potion', img: './img/potion.webp' },
+    { name: 'pants', img: './img/pants.webp' },
+    { name: 'pants', img: './img/pants.webp' },
+    { name: 'mining', img: './img/mining.webp' },
+    { name: 'mining', img: './img/mining.webp' },
+    { name: 'healtstone', img: './img/healtstone.webp' },
+    { name: 'healtstone', img: './img/healtstone.webp' },
+    { name: 'gun', img: './img/gun.webp' },
+    { name: 'gun', img: './img/gun.webp' },
+    { name: 'gold', img: './img/gold.webp' },
+    { name: 'gold', img: './img/gold.webp' }
+];
+
+// Array di carte in modalità hard
+const hardCards = [
+    { name: 'axe', img: './img/axe.webp' },
+    { name: 'axe', img: './img/axe.webp' },
+    { name: 'water', img: './img/water.webp' },
+    { name: 'water', img: './img/water.webp' },
+    { name: 'wand', img: './img/wand.webp' },
+    { name: 'wand', img: './img/wand.webp' },
+    { name: 'ring', img: './img/ring.webp' },
+    { name: 'ring', img: './img/ring.webp' },
+    { name: 'potion', img: './img/potion.webp' },
+    { name: 'potion', img: './img/potion.webp' },
+    { name: 'pants', img: './img/pants.webp' },
+    { name: 'pants', img: './img/pants.webp' },
+    { name: 'mining', img: './img/mining.webp' },
+    { name: 'mining', img: './img/mining.webp' },
+    { name: 'healtstone', img: './img/healtstone.webp' },
+    { name: 'healtstone', img: './img/healtstone.webp' },
+    { name: 'gun', img: './img/gun.webp' },
+    { name: 'gun', img: './img/gun.webp' },
+    { name: 'gold', img: './img/gold.webp' },
+    { name: 'gold', img: './img/gold.webp' },
     { name: 'bandage', img: './img/bandage.webp' },
     { name: 'bandage', img: './img/bandage.webp' },
     { name: 'coin', img: './img/coin.webp' },
@@ -76,7 +114,6 @@ const cards = [
     { name: 'undead', img: './img/undead.webp' },
     { name: 'wood', img: './img/wood.webp' },
     { name: 'wood', img: './img/wood.webp' },
-
 ];
 
 // Variabili di stato del gioco
@@ -88,6 +125,7 @@ let seconds = 0;
 let moves = -1;
 let errors = -1;
 let currentDifficulty = 'medium';
+let difficultySelected = false;
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
@@ -95,6 +133,10 @@ function startTimer() {
         seconds++;
         updateTimer();
     }, 1000);
+}
+// Funzione che sblocca il bottone start quando il gioco è iniziato
+function enableStartButton() {
+    document.getElementById('startGame').removeAttribute('disabled');
 }
 
 // Funzione che stoppa il timer di gioco
@@ -133,6 +175,12 @@ function resetGame() {
     stopTimer();
 }
 
+function resetGameState() {
+    difficultySelected = false;
+    document.getElementById('startGame').setAttribute('disabled', 'disabled');
+    // ... (altri reset necessari)
+}
+
 
 // Mescola l'array di carte
 function shuffle(array) {
@@ -167,14 +215,14 @@ function createBoard() {
 
     let cardsToUse;
     if (currentDifficulty === 'hard') {
-        cardsToUse = cards;
+        cardsToUse = hardCards;
     } else if (currentDifficulty === 'easy') {
-        cardsToUse = cards.slice(0, 10); // Prende solo le prime 5 coppie (10 carte)
+        cardsToUse = easyCards;
     } else { // medium
-        cardsToUse = cards.slice(0, 20);
+        cardsToUse = mediumCards;
     }
 
-    const shuffledCards = shuffle(cardsToUse);
+    const shuffledCards = shuffle([...cardsToUse]); // Creiamo una copia dell'array prima di mescolarlo
 
     shuffledCards.forEach(card => {
         const cardElement = document.createElement('div');
@@ -194,14 +242,14 @@ function createBoard() {
         `;
         gameBoard.appendChild(cardElement);
     });
-
-    addCardEventListeners();
 }
 
 document.querySelector('.dropdown-menu').addEventListener('click', (e) => {
     if (e.target.classList.contains('dropdown-item')) {
         currentDifficulty = e.target.textContent.toLowerCase();
-        initGame();
+        difficultySelected = true;
+        enableStartButton();
+        prepareGame();
     }
 });
 
@@ -298,11 +346,6 @@ function disableCards() {
     firstCard.classList.add('match-animation');
     secondCard.classList.add('match-animation');
 
-    setTimeout(() => {
-        firstCard.classList.remove('match-animation');
-        secondCard.classList.remove('match-animation');
-    }, 5000);
-
     resetBoard();
 }
 
@@ -333,6 +376,7 @@ restartButton.addEventListener('click', () => {
     initGame();
 })
 
+// Funzione per l'animazione dei coriandoli alla fine del gioco
 function celebrateCompletion() {
     const duration = 5 * 1000;
     const animationEnd = Date.now() + duration;
@@ -361,15 +405,26 @@ function celebrateCompletion() {
     }, 250);
 }
 
-// Inizializza il gioco
-function initGame() {
+// Prepara il gioco prima di essere inizializzato con startGame
+function prepareGame() {
     resetGame();
     createBoard();
-    startTimer();
     const mainContainer = document.querySelector('.f-d-container-main');
     mainContainer.classList.remove('d-none', 'hard');
     if (currentDifficulty === 'hard') {
         mainContainer.classList.add('hard');
     }
     updateStats();
+}
+
+// Inizializza il gioco
+function initGame() {
+    resetGameState();
+    prepareGame();
+    startGame();
+}
+
+function startGame() {
+    startTimer();
+    addCardEventListeners();
 }
