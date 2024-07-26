@@ -5,13 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('startGame').addEventListener('click', () => {
         if (difficultySelected) {
+            if (gameFinished || seconds > 0) {
+                // Se il gioco è finito o è in corso, resetta tutto
+                resetGameState();
+                prepareGame();
+            }
             document.querySelector('.f-d-container-main').classList.remove('d-none');
             startGame();
         }
     });
 
     document.getElementById('statsButton').addEventListener('click', showStats);
-
 });
 
 // Array di carte in modalità easy
@@ -126,6 +130,7 @@ let moves = -1;
 let errors = -1;
 let currentDifficulty = 'medium';
 let difficultySelected = false;
+let gameFinished = false;
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
@@ -177,8 +182,23 @@ function resetGame() {
 
 function resetGameState() {
     difficultySelected = false;
+    gameFinished = false;
+    seconds = 0;
+    moves = -1;
+    errors = -1;
+    hasFlippedCard = false;
+    lockBoard = false;
+    firstCard = null;
+    secondCard = null;
+    updateTimer();
+    updateMoves();
+    updateErrors();
+    stopTimer();
     document.getElementById('startGame').setAttribute('disabled', 'disabled');
-    // ... (altri reset necessari)
+    // Rimuove la classe 'flip' da tutte le carte
+    document.querySelectorAll('.flip-card-inner').forEach(card => {
+        card.classList.remove('flip');
+    });
 }
 
 
@@ -285,6 +305,7 @@ function checkForMatch() {
 
     if (document.querySelectorAll('.flip-card-inner.flip').length === document.querySelectorAll('.flip-card-inner').length) {
         stopTimer();
+        gameFinished = true;
         setTimeout(() => {
             celebrateCompletion(); 
             saveGameResult();
@@ -292,7 +313,6 @@ function checkForMatch() {
         }, 500);
     }
 }
-
 function saveGameResult() {
     const result = {
         date: new Date().toLocaleString(),
@@ -410,7 +430,7 @@ function prepareGame() {
     resetGame();
     createBoard();
     const mainContainer = document.querySelector('.f-d-container-main');
-    mainContainer.classList.remove('d-none', 'hard');
+    mainContainer.classList.remove('d-none', 'hard', 'start-animation', 'game-start-animation');
     if (currentDifficulty === 'hard') {
         mainContainer.classList.add('hard');
     }
@@ -424,7 +444,21 @@ function initGame() {
     startGame();
 }
 
+// Funzione di avvio del gioco
 function startGame() {
-    startTimer();
+    if (seconds === 0) {
+        startTimer();
+    }
     addCardEventListeners();
+    
+    const mainContainer = document.querySelector('.f-d-container-main');
+    mainContainer.classList.add('game-start-animation');
+    
+    const allCards = document.querySelectorAll('.flip-card-inner');
+    allCards.forEach(card => card.classList.add('match-animation'));
+    
+    setTimeout(() => {
+        mainContainer.classList.remove('game-start-animation');
+        allCards.forEach(card => card.classList.remove('match-animation'));
+    }, 1500);
 }

@@ -365,10 +365,38 @@
 
 @keyframes matchAnimation {
     0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+    35% { box-shadow: 0 0 0 0 #3498db; }
     70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
 }
 
 .match-animation {
     animation: matchAnimation 1s ease-out;
+}
+
+@keyframes gameStartAnimation {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); 
+        border-color: gold;
+    }
+    25% { 
+        box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.7); 
+        border-color: gold;
+    }
+    50% { 
+        box-shadow: 0 0 15px 5px #FFDB0F;
+        border-color: #FFDB0F;
+    }
+    75% { 
+        box-shadow: 0 0 15px 5px #FFDB0F; 
+        border-color: #FFDB0F;
+    }
+    100% { 
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); 
+        border-color: #FFDB0F;
+    }
+}
+
+.game-start-animation {
+    animation: gameStartAnimation 2.5s ease-in-out, matchAnimation 2,5s ease-out;
 }
