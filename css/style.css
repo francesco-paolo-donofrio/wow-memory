@@ -358,3 +358,15 @@
     background-position: bottom;
     background-repeat: no-repeat;
 }
+
+/* animation */
+
+@keyframes matchAnimation {
+    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+.match-animation {
+    animation: matchAnimation 1s ease-out;
+}

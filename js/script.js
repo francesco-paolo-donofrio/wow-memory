@@ -165,7 +165,15 @@ function createBoard() {
     const gameBoard = document.querySelector('.f-d-container-main .row');
     gameBoard.innerHTML = '';
 
-    let cardsToUse = currentDifficulty === 'hard' ? cards : cards.slice(0, 20);
+    let cardsToUse;
+    if (currentDifficulty === 'hard') {
+        cardsToUse = cards;
+    } else if (currentDifficulty === 'easy') {
+        cardsToUse = cards.slice(0, 10); // Prende solo le prime 5 coppie (10 carte)
+    } else { // medium
+        cardsToUse = cards.slice(0, 20);
+    }
+
     const shuffledCards = shuffle(cardsToUse);
 
     shuffledCards.forEach(card => {
@@ -227,12 +235,12 @@ function checkForMatch() {
 
     isMatch ? disableCards() : unflipCards();
 
-    // Verifica se tutte le carte sono state abbinate
-    if (document.querySelectorAll('.flip-card-inner.flip').length === cards.length) {
+    if (document.querySelectorAll('.flip-card-inner.flip').length === document.querySelectorAll('.flip-card-inner').length) {
         stopTimer();
         setTimeout(() => {
-            saveGameResult(); // Salva il risultato del gioco
-            showStats(); // Mostra le statistiche alla fine del gioco
+            celebrateCompletion(); 
+            saveGameResult();
+            showStats();
         }, 500);
     }
 }
@@ -242,8 +250,8 @@ function saveGameResult() {
         date: new Date().toLocaleString(),
         moves: moves,
         errors: errors,
-        time: formatTime(seconds)
-        
+        time: formatTime(seconds),
+        difficulty: currentDifficulty
     };
 
     let history = JSON.parse(localStorage.getItem('gameHistory')) || [];
@@ -287,6 +295,14 @@ function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
 
+    firstCard.classList.add('match-animation');
+    secondCard.classList.add('match-animation');
+
+    setTimeout(() => {
+        firstCard.classList.remove('match-animation');
+        secondCard.classList.remove('match-animation');
+    }, 5000);
+
     resetBoard();
 }
 
@@ -310,24 +326,50 @@ function resetBoard() {
 }
 
 const restartButton = document.getElementById('restartGame');
-    restartButton.addEventListener('click', () => {
-        const closeModalBtn = document.getElementById('closeModal');
-        closeModalBtn.click();
-        document.querySelector('.f-d-container-main').classList.remove('d-none');
-        initGame();
-    })
+restartButton.addEventListener('click', () => {
+    const closeModalBtn = document.getElementById('closeModal');
+    closeModalBtn.click();
+    document.querySelector('.f-d-container-main').classList.remove('d-none');
+    initGame();
+})
+
+function celebrateCompletion() {
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function () {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+        }));
+        confetti(Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+        }));
+    }, 250);
+}
 
 // Inizializza il gioco
 function initGame() {
     resetGame();
+    createBoard();
     startTimer();
     const mainContainer = document.querySelector('.f-d-container-main');
-    mainContainer.classList.remove('d-none');
+    mainContainer.classList.remove('d-none', 'hard');
     if (currentDifficulty === 'hard') {
         mainContainer.classList.add('hard');
-    } else {
-        mainContainer.classList.remove('hard');
     }
-    createBoard();
     updateStats();
 }
