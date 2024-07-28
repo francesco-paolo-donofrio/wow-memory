@@ -252,7 +252,7 @@ function createBoard() {
             <div class="flip-card ${isSmall}">
                 <div class="flip-card-inner" data-name="${card.name}">
                     <div class="flip-card-front">
-                        <img class="card ${isSmall}" src="./img/trading-card.png" alt="front-card">
+                        <img class="card ${isSmall}" src="./img/trading-card-2.png" alt="front-card">
                     </div>
                     <div class="flip-card-back">
                         <img class="item-card ${isSmall}" src="${card.img}" alt="${card.name}">
