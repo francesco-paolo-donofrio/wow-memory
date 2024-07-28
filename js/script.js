@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Script is loaded successfully.");
+    loginMusic.volume = 0.5;
     resetGameState();
     loginMusic.loop = true;
     loginMusic.play();
@@ -21,6 +22,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('statsButton').addEventListener('click', showStats);
 });
+
+// Variabili di stato del gioco
+let hasFlippedCard = false;
+let lockBoard = false;
+let firstCard, secondCard;
+let timer;
+let seconds = 0;
+let moves = -1;
+let errors = -1;
+let currentDifficulty = 'medium';
+let difficultySelected = false;
+let gameFinished = false;
+let loginMusic = new Audio('../audio/loginMusic.mp3');
+let duringGameMusic = new Audio('../audio/duringGame.mp3');
+let questCompleteSound = new Audio('../audio/questComplete.ogg');
+let checkCardSound = new Audio('../audio/checkCard.ogg');
 
 // Array di carte in modalità easy
 const easyCards = [
@@ -123,22 +140,6 @@ const hardCards = [
     { name: 'wood', img: './img/wood.webp' },
     { name: 'wood', img: './img/wood.webp' },
 ];
-
-// Variabili di stato del gioco
-let hasFlippedCard = false;
-let lockBoard = false;
-let firstCard, secondCard;
-let timer;
-let seconds = 0;
-let moves = -1;
-let errors = -1;
-let currentDifficulty = 'medium';
-let difficultySelected = false;
-let gameFinished = false;
-let loginMusic = new Audio('../audio/loginMusic.mp3');
-let duringGameMusic = new Audio('../audio/duringGame.mp3');
-let questCompleteSound = new Audio('../audio/questComplete.ogg');
-let checkCardSound = new Audio('../audio/checkCard.ogg');
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
@@ -387,6 +388,7 @@ function disableCards() {
     }, 300);
 }
 
+
 checkCardSound.volume = 0.5;
 
 // Riporta le carte allo stato iniziale se non corrispondono
@@ -407,14 +409,6 @@ function resetBoard() {
     [hasFlippedCard, lockBoard] = [false, false];
     [firstCard, secondCard] = [null, null];
 }
-
-const restartButton = document.getElementById('restartGame');
-restartButton.addEventListener('click', () => {
-    const closeModalBtn = document.getElementById('closeModal');
-    closeModalBtn.click();
-    document.querySelector('.f-d-container-main').classList.remove('d-none');
-    initGame();
-})
 
 // Funzione per gestire la pausa e la ripresa della musica quando il gioco viene messo in pausa o ripreso
 function toggleGameMusic(pause) {
