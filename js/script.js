@@ -138,7 +138,7 @@ let gameFinished = false;
 let loginMusic = new Audio('../audio/loginMusic.mp3');
 let duringGameMusic = new Audio('../audio/duringGame.mp3');
 let questCompleteSound = new Audio('../audio/questComplete.ogg');
-let checkCardSound = new Audio('checkCard.ogg');
+let checkCardSound = new Audio('../audio/checkCard.ogg');
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
@@ -371,14 +371,23 @@ function formatTime(totalSeconds) {
 
 // Disabilita le carte corrispondenti
 function disableCards() {
+    if (gameFinished) return; // Non riprodurre il suono se il gioco è finito
+
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
 
     firstCard.classList.add('match-animation');
     secondCard.classList.add('match-animation');
 
-    resetBoard();
+    checkCardSound.currentTime = 0;
+    checkCardSound.play();
+
+    setTimeout(() => {
+        resetBoard();
+    }, 300);
 }
+
+checkCardSound.volume = 0.5;
 
 // Riporta le carte allo stato iniziale se non corrispondono
 function unflipCards() {
