@@ -1,17 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Script is loaded successfully.");
-
     resetGameState();
+    loginMusic.loop = true;
+    loginMusic.play();
 
     document.getElementById('startGame').addEventListener('click', () => {
         if (difficultySelected) {
             if (gameFinished || seconds > 0) {
-                // Se il gioco è finito o è in corso, resetta tutto
                 resetGameState();
                 prepareGame();
             }
             document.querySelector('.f-d-container-main').classList.remove('d-none');
             startGame();
+            loginMusic.pause();
+            loginMusic.currentTime = 0;
+            duringGameMusic.loop = true;
+            duringGameMusic.play();
         }
     });
 
@@ -131,6 +135,10 @@ let errors = -1;
 let currentDifficulty = 'medium';
 let difficultySelected = false;
 let gameFinished = false;
+let loginMusic = new Audio('../audio/loginMusic.mp3');
+let duringGameMusic = new Audio('../audio/duringGame.mp3');
+let questCompleteSound = new Audio('../audio/questComplete.ogg');
+let checkCardSound = new Audio('checkCard.ogg');
 
 // Funzione che fa partire il timer di gioco
 function startTimer() {
@@ -252,7 +260,7 @@ function createBoard() {
             <div class="flip-card ${isSmall}">
                 <div class="flip-card-inner" data-name="${card.name}">
                     <div class="flip-card-front">
-                        <img class="card ${isSmall}" src="./img/trading-card-2.png" alt="front-card">
+                        <img class="card ${isSmall}" src="./img/trading-card.png" alt="front-card">
                     </div>
                     <div class="flip-card-back">
                         <img class="item-card ${isSmall}" src="${card.img}" alt="${card.name}">
@@ -306,6 +314,9 @@ function checkForMatch() {
     if (document.querySelectorAll('.flip-card-inner.flip').length === document.querySelectorAll('.flip-card-inner').length) {
         stopTimer();
         gameFinished = true;
+        duringGameMusic.pause();
+        duringGameMusic.currentTime = 0;
+        questCompleteSound.play();
         setTimeout(() => {
             celebrateCompletion(); 
             saveGameResult();
@@ -396,6 +407,15 @@ restartButton.addEventListener('click', () => {
     initGame();
 })
 
+// Funzione per gestire la pausa e la ripresa della musica quando il gioco viene messo in pausa o ripreso
+function toggleGameMusic(pause) {
+    if (pause) {
+        duringGameMusic.pause();
+    } else {
+        duringGameMusic.play();
+    }
+}
+
 // Funzione per l'animazione dei coriandoli alla fine del gioco
 function celebrateCompletion() {
     const duration = 5 * 1000;
@@ -461,4 +481,9 @@ function startGame() {
         mainContainer.classList.remove('game-start-animation');
         allCards.forEach(card => card.classList.remove('match-animation'));
     }, 1500);
+
+    loginMusic.pause();
+    loginMusic.currentTime = 0;
+    duringGameMusic.loop = true;
+    duringGameMusic.play();
 }
