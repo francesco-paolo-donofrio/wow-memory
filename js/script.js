@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Script is loaded successfully.");
-    loginMusic.volume = 0.5;
     resetGameState();
     loginMusic.loop = true;
     loginMusic.play();
